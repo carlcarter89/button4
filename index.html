@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copy Button</title>
+  <!-- Include Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Reset padding and margin for the button */
+    button {
+      padding: 0;
+      margin: 0;
+    }
+    /* Style the button */
+    .copy-button {
+      background-color: #3A4BBF;
+      color: white;
+      border: none;
+      padding: 5px 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 0;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    /* Hide the input field */
+    #textToCopy {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<button class="copy-button" onclick="copyToClipboard()">
+  <!-- Add Font Awesome copy icon -->
+  <i class="far fa-copy" style="font-size:14px"></i> 复制回答
+</button>
+
+<script>
+  function copyToClipboard() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramsString = urlParams.get("copy");
+    
+    if (paramsString) {
+      const textToCopy = decodeURIComponent(paramsString);
+      
+      // Use the Clipboard API to copy the text to the clipboard
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {})
+        .catch(err => {
+          console.error('Failed to copy text: ', err);
+          alert("Failed to copy text. Please try again.");
+        });
+    } else {
+      alert("No text found in the URL parameters.");
+    }
+  }
+</script>
+
+<!-- Include Font Awesome JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
+</body>
+</html>
